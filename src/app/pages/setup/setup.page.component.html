@@ -1,0 +1,41 @@
+<mat-toolbar color="primary">
+    Kraken-Menubar
+    <button mat-button routerLink="/home">Home</button>
+</mat-toolbar>
+
+<div class="basic-container">
+
+    <h1>What ?</h1>
+    <p>
+        <mat-form-field>
+            <input matInput placeholder="Key" [(ngModel)]="key">
+        </mat-form-field>
+    </p>
+
+    <p>
+        <mat-form-field>
+            <input matInput placeholder="Secret" [(ngModel)]="secret">
+        </mat-form-field>
+    </p>
+
+    <p>
+        <button mat-raised-button (click)="saveHandler()">Good ?</button>
+    </p>
+
+    <h1>Where ?</h1>
+    <p>
+        <img src="https://cryptfolio.com/img/accounts/kraken1.png" />
+    </p>
+    <p>
+        <img src="https://cryptfolio.com/img/accounts/kraken2.png" />
+    </p>
+    <p>
+        <img src="https://cryptfolio.com/img/accounts/kraken3.png" />
+    </p>
+    <p>
+        <img src="https://cryptfolio.com/img/accounts/kraken4.png" />
+    </p>
+    <p>
+        <img src="https://cryptfolio.com/img/accounts/kraken5.png" />
+    </p>
+</div>
