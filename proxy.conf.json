@@ -1,0 +1,10 @@
+{
+    "/api": {
+        "target": "https://api.kraken.com",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api": ""
+        }
+    }
+}

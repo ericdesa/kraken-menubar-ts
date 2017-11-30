@@ -15,7 +15,7 @@ export class KrakenService {
      */
     public setup(key, secret) {
         this.config = {
-            url: 'https://api.kraken.com',
+            url: '/api',
             version: '0',
             key: key,
             secret: secret,

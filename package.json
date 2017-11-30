@@ -6,7 +6,7 @@
     "scripts": {
         "========================= Project =========================": "",
         "-------------------------- Front --------------------------": "",
-        "start": "ng serve --host=0.0.0.0 --disable-host-check",
+        "start": "ng serve --host=0.0.0.0 --proxy-config proxy.conf.json",
         "build": "ng build -prod && electron-packager ./dist KrakenMenubar --arch=x64 --platform=darwin --version=1.8.0",
         "========================== Metrics ==========================": "",
         "lint": "ng lint",
@@ -46,9 +46,5 @@
         "ts-node": "~3.0.4",
         "tslint": "~5.3.2",
         "typescript": "2.4.2"
-    },
-    "browserslist": [
-        "last 10 versions",
-        "ie 9"
-    ]
+    }
 }
