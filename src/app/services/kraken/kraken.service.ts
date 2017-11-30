@@ -1,5 +1,7 @@
+
 import * as CryptoJS from 'crypto-js';
-import { HttpClient } from '@angular/common/http';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -81,35 +83,41 @@ export class KrakenService {
 
         params.nonce = (new Date() as any) * 1000; // spoof microsecond
 
-
         let signature = this.getMessageSignature(path, params, params.nonce);
 
-        let headers = {
-            'API-Key': this.config.key,
-            'API-Sign': signature
-        };
+        let headers = new HttpHeaders();
+        headers = headers.set('API-Key', this.config.key);
+        headers = headers.set('API-Sign', signature);
+        headers = headers.set('Content-Type', 'application/x-www-form-urlencoded');
+
+        // headers = headers.set('user-agent', 'Kraken Javascript API Client');
 
         return this.rawRequest(url, headers, params);
     }
 
 	/**
+     * from https://stackoverflow.com/questions/45856413/angular4-typescript-sign-kraken-api-call-cryptojs/46753240#46753240
 	 * This method returns a signature for a request as a Base64-encoded string
 	 * @param  {String}  path    The relative URL path for the request
 	 * @param  {Object}  request The POST body
 	 * @param  {Integer} nonce   A unique, incrementing integer
 	 * @return {String}          The request signature
 	 */
-    public getMessageSignature(path, request, nonce) {
-        // API-Sign = Message signature using HMAC-SHA512 of
-        // (URI path + SHA256(nonce + POST data)) and base64 decoded secret API key
+    private getMessageSignature(path: string, params: any, nonce: number) {
+        let apiSecret = this.config.secret;
 
-        let message = JSON.stringify(request);
-        let c = CryptoJS;
-        let hashDigest = CryptoJS.SHA256(nonce + message).toString(CryptoJS.enc.Hex);
-        let hmacDigest = CryptoJS.SHA512(path + hashDigest).toString(CryptoJS.enc.Base64);
+        let request = Object.keys(params).map((key) => `${key}=${params[key]}`).join('&');
+        const secret = CryptoJS.enc.Base64.parse(apiSecret);
+        const hashDigest = CryptoJS.SHA256(nonce + request);
 
-        return hmacDigest;
+        const hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA512, secret);
+        hmac.update(path);
+        hmac.update(hashDigest);
+
+        let c = CryptoJS.enc.Base64.stringify(hmac.finalize());
+        return c;
     }
+
 
 	/**
 	 * This method sends the actual HTTP request
@@ -121,14 +129,9 @@ export class KrakenService {
 	 */
     public rawRequest(url, headers, params): Promise<any> {
         return new Promise((resolve, reject) => {
+            let body = Object.keys(params).map((key) => `${key}=${params[key]}`).join('&');
 
-            headers['User-Agent'] = 'Kraken-MenuBar 0.0.1';
-            let opts = {
-                headers: headers,
-                params: params
-            };
-
-            this.http.post(url, opts).subscribe((data: any) => {
+            this.http.post(url, body, { headers: headers }).subscribe((data: any) => {
                 // If any errors occured, Kraken will give back an array with error strings under
                 // the key "error". We should then propagate back the error message as a proper error.
                 if (data.error && data.error.length) {
