@@ -10,6 +10,7 @@ import { KrakenService } from '../../services/kraken/kraken.service';
 
 export class HomePageComponent {
     protected krakenClient: any;
+    protected result: any = [];
 
     constructor(protected krakenService: KrakenService) {
         let key = window.localStorage.getItem('key') || '';
@@ -20,7 +21,12 @@ export class HomePageComponent {
 
         krakenService.api('TradeBalance', { 'asset': 'EUR' })
             .then((data) => {
-                console.log('yo');
+                this.result = Object.keys(data.result).map((k) => {
+                    return {
+                        unit: k,
+                        value: data.result[k]
+                    };
+                });
             });
     }
 

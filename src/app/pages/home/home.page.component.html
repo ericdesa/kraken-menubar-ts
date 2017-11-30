@@ -4,5 +4,7 @@
 </mat-toolbar>
 
 <div class="basic-container">
-
+    <div *ngFor="let currency of result">
+        {{ currency.unit }} || {{ currency.value }}
+    </div>
 </div>
