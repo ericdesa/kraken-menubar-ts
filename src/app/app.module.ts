@@ -10,13 +10,13 @@ import { AppComponent } from './app.component';
 
 // pages
 import { HomePageComponent } from './pages/home/home.page.component';
-import { SetupPageComponent } from 'app/pages/setup/setup.page.component';
 
 // services
 import { KrakenService } from 'app/services/kraken/kraken.service';
 import { PreferencesService } from 'app/services/preferences/preferences.service';
 
 // libs
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
     declarations: [
@@ -34,6 +34,8 @@ import { PreferencesService } from 'app/services/preferences/preferences.service
         FormsModule,
         HttpClientModule,
 
+        // libs
+        SimpleNotificationsModule.forRoot(),
     ],
 
     providers: [

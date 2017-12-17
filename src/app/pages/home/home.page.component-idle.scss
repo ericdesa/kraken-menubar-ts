@@ -1,0 +1,19 @@
+@import '../../../theme/colors';
+
+.idle {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr;
+
+  &-logo {
+    background: url('~/assets/home/app-logo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+
+}

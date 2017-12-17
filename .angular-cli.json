@@ -15,7 +15,7 @@
             "tsconfig": "tsconfig.app.json",
             "prefix": "app",
             "styles": [
-                "styles.scss"
+                "theme/styles.scss"
             ],
             "scripts": [
                 "../node_modules/crypto-js/crypto-js.js"

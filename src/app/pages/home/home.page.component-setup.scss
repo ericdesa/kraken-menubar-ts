@@ -1,0 +1,30 @@
+@import '../../../theme/colors';
+
+.setup {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: 1fr;
+
+  &-icon {
+    height: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90px;
+  }
+
+  &-instructions {
+    line-height: 1.5rem;
+  }
+
+  &-api-key-input {
+    margin-top: 15px;
+  }
+
+  &-api-secret-input {
+    margin-bottom: 15px;
+  }
+
+  &-link {
+    color: white;
+  }
+}

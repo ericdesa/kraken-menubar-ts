@@ -1,11 +1,25 @@
-<mat-toolbar color="primary">
-    Kraken-Menubar
-    <button mat-button routerLink="/setup">setup</button>
-</mat-toolbar>
+<div class="app-home">
 
-<div class="basic-container">
-    <div *ngFor="let currency of result">
-        {{ currency.unit }} || {{ currency.value }}
+    <div class="idle" *ngIf="!shouldShowSetup">
+        <div class="idle-logo"></div>
+        <button class="green-button" (click)="showSetupHandler()">I WANT TO EDIT MY API-KEY PLEASE</button>
+    </div>
+
+    <div class="setup" *ngIf="shouldShowSetup">
+        <div class="icon-key setup-icon"></div>
+
+        <h1>WELCOME !</h1>
+
+        <span class="setup-instructions">WE NEED YOUR
+            <strong>“API KEY”</strong> WITH
+            <strong>“QUERY FUNDS”</strong>
+            AUTHORIZATION TO SHOW YOU YOUR BALANCE
+        </span>
+
+        <input class="setup-api-key-input" placeholder="API KEY" [(ngModel)]="setupApiKey" />
+        <input class="setup-api-secret-input" placeholder="API SECRET" [(ngModel)]="setupApiKey" />
+
+        <button class="green-button" (click)="validateSetupHandler()">VALIDATE</button>
+        <a href="" class="setup-link">hum... where are this things ?</a>
     </div>
 </div>
-
